@@ -3,23 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
 <body>
     <div id="app">
-        <!-- <app-header v-on:하위 컴포넌트에서 발생한 이벤트 이름:상위 컴포넌트></app-header> -->
-        <app-header v-on:pass="logText"></app-header>
-        <app-content v-on:increase="add"></app-content>
         <p>{{num}}</p>
+        <!-- <app-header v-on:하위 컴포넌트에서 발생한 이벤트 이름="상위 컴포넌트 메서드 이름"></app-header> -->
+        <app-header v-on:pass="logText"></app-header>
+        <app-content v-on:add="addNum"></app-content>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
         var appHeader = {
             template : '<button v-on:click="passEvent">click me</button>',
-            methods : {
-                passEvent : function(){
-                    this.$emit('pass')
+            methods: {
+                passEvent: function(){
+                    this.$emit('pass');
                 }
             }
         }
@@ -27,11 +26,12 @@
             template : '<button v-on:click="addNumber">add</button>',
             methods : {
                 addNumber : function(){
-                    this.$emit('increase')
+                    this.$emit('add');
                 }
             }
+
         }
-        new Vue({
+        var vm  = new Vue({
             el : '#app',
             components : {
                 'app-header' : appHeader,
@@ -39,17 +39,16 @@
             },
             methods : {
                 logText : function(){
-                    console.log('hi');
+                    console.log('hi')
                 },
-                add : function(){
+                addNum : function(){
                     this.num = this.num + 1;
-                    console.log(this.num);
                 }
             },
             data : {
                 num : 10
             }
-        });
+        })
     </script>
 </body>
 </html>
